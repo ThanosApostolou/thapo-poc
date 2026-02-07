@@ -1,0 +1,20 @@
+meta {
+  name: delete_todo
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:11080/pocspring/api/todo/delete_todo?id=1
+  body: json
+  auth: inherit
+}
+
+params:query {
+  id: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

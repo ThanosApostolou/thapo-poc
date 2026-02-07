@@ -1,0 +1,16 @@
+meta {
+  name: prometheus
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:11080/pocspring/actuator/prometheus
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

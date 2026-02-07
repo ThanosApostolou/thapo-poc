@@ -1,0 +1,19 @@
+meta {
+  name: ws
+  type: ws
+  seq: 5
+}
+
+ws {
+  url: ws://localhost:11080/pocspring/ws/chat
+  body: ws
+  auth: inherit
+}
+
+body:ws {
+  name: message 1
+  type: json
+  content: '''
+    {"test": "testdfasdfsdfas"}
+  '''
+}

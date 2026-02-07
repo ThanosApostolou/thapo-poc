@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<div th:fragment="header(activePage)">
+
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/mpa/home}">MPA</a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'home' ? 'active' : ''}"
+                           th:href="@{/mpa/home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'todo' ? 'active' : ''}"
+                           th:href="@{/mpa/todo}">Todo</a>
+                    </li>
+                </ul>
+                <div th:if="${name} != null">
+                    <button th:text="${name}"></button>
+                    <a style="appearance: button" th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</body>
+</html>

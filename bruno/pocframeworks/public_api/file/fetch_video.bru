@@ -1,0 +1,24 @@
+meta {
+  name: /fetch_video
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:11080/pocspring/public_api/file/fetch_video
+  body: none
+  auth: inherit
+}
+
+headers {
+  : 
+}
+
+assert {
+  res.status: eq 200
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

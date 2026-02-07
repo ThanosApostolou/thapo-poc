@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: "pocspring"
+  datasource:
+    url: "jdbc:postgresql://localhost:11432/pocwebframeworks_db"
+    username: "pocwebframeworks_user"
+    password: "pocwebframeworks_password"
+    hikari:
+      schema: "pocwebframeworks_schema"
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/token/introspect
+          client-id: poc_web_frameworks_backend_client
+          client-secret: aaNOr50RPAK6yIqDeO6qNLlY7NPKpNJB
+server:
+  port: 11082
+  servlet:
+    context-path: "/pocspring"
+
+logging:
+  level:
+    root: "info"
+    org.springframework.web: "debug"
+    org.hibernate: "warn"

@@ -1,0 +1,101 @@
+name: "pocwebframeworks"
+
+networks:
+  pocwebframeworks_network:
+
+volumes:
+  pocwebframeworks_postgres_var_lib_postgresql_data:
+    name: pocwebframeworks_postgres_var_lib_postgresql_data
+  pocwebframeworks_pgadmin_var_lib_pgadmin:
+    name: pocwebframeworks_pgadmin_var_lib_pgadmin
+
+services:
+  pocwebframeworks-postgres:
+    container_name: pocwebframeworks-postgres
+    image: "docker.io/postgres:17.6"
+    restart: no
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=pocwebframeworks_postgres_password"
+      - "PGPORT=5432"
+    volumes:
+      - "pocwebframeworks_postgres_var_lib_postgresql_data:/var/lib/postgresql/data"
+    ports:
+      - "11432:5432"
+    networks:
+      - pocwebframeworks_network
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "1000m"
+
+  pocwebframeworks-pgadmin:
+    container_name: pocwebframeworks-pgadmin
+    hostname: pocwebframeworks-pgadmin
+    image: "docker.io/dpage/pgadmin4:9.7"
+    restart: no
+    links:
+      - pocwebframeworks-postgres
+    depends_on:
+      - pocwebframeworks-postgres
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=thanosapostolou@outlook.com"
+      - "PGADMIN_DEFAULT_PASSWORD=pocwebframeworks_pgadmin_password"
+    volumes:
+      - pocwebframeworks_pgadmin_var_lib_pgadmin:/var/lib/pgadmin
+    ports:
+      - "11480:80"
+    networks:
+      - pocwebframeworks_network
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "200m"
+
+  pocwebframeworks-iam:
+    container_name: pocwebframeworks-iam
+    image: "quay.io/keycloak/keycloak:26.4.5"
+    restart: no
+    command: start
+    links:
+      - pocwebframeworks-postgres
+    depends_on:
+      - pocwebframeworks-postgres
+    environment:
+      PROXY_ADDRESS_FORWARDING: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: adminpassword
+    volumes:
+      - ./keycloak.conf:/opt/keycloak/conf/keycloak.conf:ro
+    ports:
+      - "11081:11081"
+    networks:
+      - pocwebframeworks_network
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2000m"
+
+  pocwebframeworks-gateway:
+    container_name: pocwebframeworks-gateway
+    image: "docker.io/nginx:1.29.4"
+    restart: no
+    ports:
+      - "11080:11080"
+    networks:
+      - pocwebframeworks_network
+    volumes:
+      - ./nginx-gateway.conf:/etc/nginx/conf.d/nginx-gateway.conf:ro
+    extra_hosts:
+      - "host.docker.internal:10.0.2.2"
+    depends_on:
+      - pocwebframeworks-pgadmin
+      - pocwebframeworks-iam
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "200m"

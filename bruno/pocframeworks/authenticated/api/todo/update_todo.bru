@@ -1,0 +1,25 @@
+meta {
+  name: update_todo
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:11080/pocspring/api/todo/update_todo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1,
+    "title": "testTitle4",
+    "description": "someDescritption. This is a task4",
+    "dueDate": "2025-09-25T12:15:50+00:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

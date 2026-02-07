@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: head"></div>
+    <title>MPA: About</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header('todo')"></div>
+
+
+<div class="container">
+    <a class="btn btn-primary" th:href="@{/mpa/todo/create_todo}">Create todo</a>
+
+    <p>These are the active todos!!</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">DueDate</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo,iter : ${todos}">
+            <td th:text="${iter.index} + 1"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.description}"></td>
+            <td th:text="${todo.dueDate}"></td>
+            <td>
+                <form method="post" style="display:inline" th:action="@{/todos/{id}/toggle(id=${todo.id})}">
+                    <button type="submit">Toggle</button>
+                </form>
+                <form method="post" style="display:inline" th:action="@{/mpa/todo/delete_todo(id=${todo.id})}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

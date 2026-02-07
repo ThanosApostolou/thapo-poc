@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: head"></div>
+    <title>MPA: Home</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header('home')"></div>
+<p>This is home</p>
+<p th:text="|Hello, ${name}!|"></p>
+<p th:text="|authorities, ${authorities}!|"></p>
+<p th:text="|claims, ${claims}!|"></p>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+meta {
+  name: authenticated
+}
+
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: http://localhost:11080/app
+  authorization_url: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/auth
+  access_token_url: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/token
+  refresh_token_url: 
+  client_id: poc_web_frameworks_backend_client
+  client_secret: aaNOr50RPAK6yIqDeO6qNLlY7NPKpNJB
+  scope: openid profile email
+  state: 
+  pkce: true
+  credentials_placement: basic_auth_header
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: true
+}

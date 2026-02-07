@@ -1,0 +1,16 @@
+meta {
+  name: fetchUserDetails
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:11080/${contextPath}/api/user/fetch_user_details
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

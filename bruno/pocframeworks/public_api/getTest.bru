@@ -1,0 +1,20 @@
+meta {
+  name: /getTest
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:11080/pocspring/public_api/getTest
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 200
+  res.body: eq some test message
+}
+
+settings {
+  encodeUrl: true
+}

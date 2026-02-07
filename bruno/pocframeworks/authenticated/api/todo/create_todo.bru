@@ -1,0 +1,24 @@
+meta {
+  name: create_todo
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:11080/pocspring/api/todo/create_todo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "testTitle",
+    "description": "someDescritption. This is a task",
+    "dueDate": "2025-09-20T12:15:50+00:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
