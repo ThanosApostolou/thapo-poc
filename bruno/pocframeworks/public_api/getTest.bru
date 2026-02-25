@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: http://localhost:11080/pocspring/public_api/getTest
+  url: {{baseUrl}}/public_api/getTest
   body: none
   auth: inherit
 }
@@ -17,4 +17,5 @@ assert {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
