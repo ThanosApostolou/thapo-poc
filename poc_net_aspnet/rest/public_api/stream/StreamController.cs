@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace poc_net_aspnet.rest.public_api.stream;
 
 [ApiController]
-[Route(Path)]
+[Route(ControllerPath)]
 public class StreamController : ControllerBase
 {
-    public const string Path = PublicApiController.Path + "/stream";
+    public const string ControllerPath = PublicApiController.ControllerPath + "/stream";
 
     [HttpGet("fetch_stream")]
     [Produces(MediaTypeNames.Application.Json)]
