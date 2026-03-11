@@ -1,4 +1,4 @@
-using System.Net.Mime;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace poc_net_aspnet.rest.public_api.file;
@@ -10,38 +10,32 @@ public class FileController(ILogger<FileController> logger) : ControllerBase
     public const string ControllerPath = PublicApiController.ControllerPath + "/file";
 
     [HttpGet("fetch_image")]
-    [Produces(MediaTypeNames.Image.Jpeg)]
-    public PhysicalFileResult FetchImage()
+    public PhysicalFileHttpResult FetchImage()
     {
         logger.LogInformation("START fetchImage");
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "../files/public/sample-image.jpg");
         logger.LogInformation("END fetchImage");
 
-        return PhysicalFile(filePath, "image/jpeg", true);
+        return TypedResults.PhysicalFile(filePath, "image/jpeg", enableRangeProcessing: true);
     }
 
     [HttpGet("fetch_audio")]
-    [Produces("audio/mpeg")]
-    public PhysicalFileResult FetchAudio()
+    public PhysicalFileHttpResult FetchAudio()
     {
         logger.LogInformation("START fetchAudio");
 
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "../files/public/sample-audio.mp3");
         logger.LogInformation("END fetchAudio");
 
-        return PhysicalFile(filePath, "audio/mpeg", true);
+        return TypedResults.PhysicalFile(filePath, "audio/mpeg", enableRangeProcessing: true);
     }
 
     [HttpGet("fetch_video")]
-    [Produces("video/webm")]
-    public PhysicalFileResult FetchVideo()
+    public PhysicalFileHttpResult FetchVideo()
     {
         logger.LogInformation("START fetchVideo");
-
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "../files/public/sample-video.webm");
-
         logger.LogInformation("END fetchVideo");
-
-        return PhysicalFile(filePath, "video/webm", true);
+        return TypedResults.PhysicalFile(filePath, "video/webm", enableRangeProcessing: true);
     }
 }

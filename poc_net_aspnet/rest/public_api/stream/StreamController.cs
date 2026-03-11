@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace poc_net_aspnet.rest.public_api.stream;
@@ -32,10 +33,10 @@ public class StreamController : ControllerBase
     }
 
     [HttpGet("fetch_sse")]
-    public IResult FetchSse(CancellationToken cancellationToken)
+    public ServerSentEventsResult<string> FetchSse(CancellationToken cancellationToken)
     {
         var events = GenerateEvents(cancellationToken);
 
-        return Results.ServerSentEvents(events);
+        return TypedResults.ServerSentEvents(events);
     }
 }

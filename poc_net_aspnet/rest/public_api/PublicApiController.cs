@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace poc_net_aspnet.rest.public_api;
@@ -11,8 +12,8 @@ public class PublicApiController : ControllerBase
 
     [HttpGet("getTest")]
     [Produces(MediaTypeNames.Text.Plain)]
-    public ActionResult<string> Hello()
+    public Ok<string> Hello()
     {
-        return StatusCode(StatusCodes.Status200OK, "some test message");
+        return TypedResults.Ok("some test message");
     }
 }
