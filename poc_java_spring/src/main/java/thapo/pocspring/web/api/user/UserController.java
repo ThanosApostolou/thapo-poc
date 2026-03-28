@@ -9,7 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import thapo.pocspring.infrastructure.auth.CustomOAuth2AuthenticatedPrincipal;
+import thapo.pocspring.infrastructure.auth.CustomOAuth2AuthenticatedPrincipalI;
 import thapo.pocspring.infrastructure.auth.Roles;
 import thapo.pocspring.web.api.ApiController;
 
@@ -24,7 +24,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('" + Roles.SIMPLE + "')")
     @RequestMapping(method = RequestMethod.GET, path = "/fetch_user_details", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FetchUserDetailsAction.FetchUserDetailsDto> fetchUserDetails(@AuthenticationPrincipal CustomOAuth2AuthenticatedPrincipal oAuth2AuthenticatedPrincipal) {
+    public ResponseEntity<FetchUserDetailsAction.FetchUserDetailsDto> fetchUserDetails(@AuthenticationPrincipal CustomOAuth2AuthenticatedPrincipalI oAuth2AuthenticatedPrincipal) {
         return ResponseEntity.ok()
                 .body(fetchUserDetailsAction.fetchUserDetails(oAuth2AuthenticatedPrincipal));
     }

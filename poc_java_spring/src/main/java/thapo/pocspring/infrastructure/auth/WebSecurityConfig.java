@@ -1,7 +1,6 @@
 package thapo.pocspring.infrastructure.auth;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -24,12 +23,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @Slf4j
 public class WebSecurityConfig {
-    @Value("${spring.security.oauth2.resourceserver.opaquetoken.introspection-uri}")
-    private String introspectionUri;
-    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-id}")
-    private String clientId;
-    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-secret}")
-    private String clientSecret;
+//    @Value("${spring.security.oauth2.resourceserver.opaquetoken.introspection-uri}")
+//    private String introspectionUri;
+//    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-id}")
+//    private String clientId;
+//    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-secret}")
+//    private String clientSecret;
 
 
     @Bean
@@ -45,7 +44,7 @@ public class WebSecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain filterChainMpa(final HttpSecurity http, final ClientRegistrationRepository clientRegistrationRepository,
-                                              final OAuth2AuthorizationRequestResolver resolver, final CustomOidcUserService customOidcUserService) throws Exception {
+                                              final OAuth2AuthorizationRequestResolver resolver, final CustomOidcUserService customOidcUserService) {
         // Mutli page application auth
         http
                 .securityMatcher("/", "/mpa/**", "/login/**", "/logout/**", "/oauth2/**")
@@ -75,7 +74,7 @@ public class WebSecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain filterChainRest(final HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChainRest(final HttpSecurity http, final CustomJwtAuthenticationConverter customJwtAuthenticationConverter) {
         // rest auth
         http
                 .cors(Customizer.withDefaults()) // use WebMVC cors configuration
@@ -90,9 +89,9 @@ public class WebSecurityConfig {
                         securitySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
                         httpSecurityOAuth2ResourceServerConfigurer
-                                .opaqueToken(opaqueTokenConfigurer ->
-                                        opaqueTokenConfigurer
-                                                .introspector(new CustomOpaqueTokenIntrospector(introspectionUri, clientId, clientSecret))));
+                                .jwt(jwtConfigurer ->
+                                        jwtConfigurer
+                                                .jwtAuthenticationConverter(customJwtAuthenticationConverter)));
         return http.build();
     }
 

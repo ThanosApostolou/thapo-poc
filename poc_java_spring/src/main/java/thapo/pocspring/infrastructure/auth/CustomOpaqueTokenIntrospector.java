@@ -4,7 +4,11 @@ import org.springframework.security.oauth2.server.resource.introspection.OAuth2I
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
 
-public class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
+/**
+ * @deprecated
+ */
+@Deprecated(forRemoval = true)
+class CustomOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
     private final SpringOpaqueTokenIntrospector springOpaqueTokenIntrospector;
 
     public CustomOpaqueTokenIntrospector(String introspectionUri, String clientId, String clientSecret) {

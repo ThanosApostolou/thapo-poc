@@ -10,10 +10,15 @@ spring:
   security:
     oauth2:
       resourceserver:
-        opaquetoken:
-          introspection-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/token/introspect
-          client-id: poc_web_frameworks_backend_client
-          client-secret: aaNOr50RPAK6yIqDeO6qNLlY7NPKpNJB
+        jwt:
+          issuer-uri: http://localhost:11080/iam/realms/poc_web_frameworks
+          jwk-set-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/certs
+          audiences:
+            - account
+      #        opaquetoken:
+      #          introspection-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/token/introspect
+      #          client-id: poc_web_frameworks_backend_client
+      #          client-secret: aaNOr50RPAK6yIqDeO6qNLlY7NPKpNJB
       client:
         registration:
           keycloak:
@@ -26,7 +31,6 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
         provider:
           keycloak:
-            issuer-uri: http://localhost:11080/iam/realms/poc_web_frameworks
             authorization-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/auth
             token-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/token
             user-info-uri: http://localhost:11080/iam/realms/poc_web_frameworks/protocol/openid-connect/userinfo

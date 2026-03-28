@@ -1,30 +1,52 @@
 package thapo.pocspring.web.api;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import thapo.pocspring.infrastructure.auth.CustomOidcUserService;
+import thapo.pocspring.infrastructure.auth.WebSecurityConfig;
+import thapo.pocspring.testutils.CustomJwtAuthenticationTokenTestBuilder;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 
 @WebMvcTest(ApiController.class)
-@WithMockUser
+@Import(WebSecurityConfig.class)
 class ApiControllerTest {
+    private final String PATH = "/api/getTest";
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvcTester mockMvcTester;
+    @MockitoBean
+    private CustomOidcUserService customOidcUserService;
 
-    @Test
-    void getTest_returnsExpectedMessage() throws Exception {
-        mockMvc.perform(get("/api/getTest"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
-                .andExpect(content().string("some test message from protected api"));
+    @Nested
+    class GetTest {
+        @Test
+        void unauthorized_noAuthentication() {
+            var result = mockMvcTester.get().uri("/api/getTest").exchange();
+            assertThat(result)
+                    .hasStatus(HttpStatus.UNAUTHORIZED)
+                    .doesNotContainHeader(HttpHeaders.CONTENT_TYPE)
+                    .body().isEmpty();
+        }
+
+        @Test
+        void ok_returnsExpectedMessage() {
+            var result = mockMvcTester.get().uri("/api/getTest")
+                    .with(authentication(new CustomJwtAuthenticationTokenTestBuilder().build())).exchange();
+            assertThat(result)
+                    .hasStatus(HttpStatus.OK)
+                    .hasContentTypeCompatibleWith(MediaType.TEXT_PLAIN)
+                    .bodyText().isEqualTo("some test message from protected api");
+        }
     }
-
 }
 

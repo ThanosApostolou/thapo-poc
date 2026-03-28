@@ -10,8 +10,12 @@ import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimAcc
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @deprecated
+ */
 @Slf4j
-public class CustomOAuth2AuthenticatedPrincipal implements OAuth2TokenIntrospectionClaimAccessor, CustomOAuth2AuthenticatedPrincipalI {
+@Deprecated(forRemoval = true)
+class CustomOAuth2AuthenticatedPrincipal implements OAuth2TokenIntrospectionClaimAccessor, CustomOAuth2AuthenticatedPrincipalI {
     private final OAuth2AuthenticatedPrincipal delegate;
     private final Set<GrantedAuthority> authorities;
 
@@ -93,9 +97,5 @@ public class CustomOAuth2AuthenticatedPrincipal implements OAuth2TokenIntrospect
     @Override
     public String getEmail() {
         return getClaimAsString("email");
-    }
-
-    public List<String> getScopes() {
-        return getClaimAsStringList("scope");
     }
 }
