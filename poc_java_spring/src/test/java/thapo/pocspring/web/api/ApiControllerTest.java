@@ -11,14 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import thapo.pocspring.infrastructure.auth.CustomOidcUserService;
-import thapo.pocspring.infrastructure.auth.WebSecurityConfig;
+import thapo.pocspring.testutils.CommonControllerTestConfiguration;
 import thapo.pocspring.testutils.CustomJwtAuthenticationTokenTestBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 
 @WebMvcTest(ApiController.class)
-@Import(WebSecurityConfig.class)
+@Import(CommonControllerTestConfiguration.class)
 class ApiControllerTest {
     private final String PATH = "/api/getTest";
 
