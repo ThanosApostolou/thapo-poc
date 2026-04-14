@@ -81,6 +81,7 @@ public class WebSecurityConfig {
                 .csrf(CsrfConfigurer::disable) // disable csrf
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/soap/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/public_api/**", "/api/stream/**", "/public/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/api/**", "/ws/**").authenticated();
                     authorizationManagerRequestMatcherRegistry.anyRequest().denyAll();

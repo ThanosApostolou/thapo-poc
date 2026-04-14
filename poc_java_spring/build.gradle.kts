@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "4.0.5"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.github.bjornvester.xjc") version "1.9.0"
 }
 
 group = "thapo"
@@ -53,6 +54,10 @@ dependencies {
     // GraphQL
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     testImplementation("org.springframework.graphql:spring-graphql-test")
+    // SOAP
+    implementation("org.springframework.boot:spring-boot-starter-web-services")
+    testImplementation("org.springframework.boot:spring-boot-starter-web-services-test")
+    runtimeOnly("wsdl4j:wsdl4j")
     // OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1")
     // Metrics
@@ -71,3 +76,10 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+xjc {
+    xsdDir.set(layout.projectDirectory.dir("src/main/resources/soap"))
+    defaultPackage.set("thapo.pocspring.web.soap.dto")
+    addCompilationDependencies.set(false)
+}
+
