@@ -20,9 +20,25 @@
         <maven.compiler.release>25</maven.compiler.release>
         <jakartaee-api.version>11.0.0</jakartaee-api.version>
         <microprofile-config.version>3.1</microprofile-config.version>
+        <microprofile-openapi.version>4.0.2</microprofile-openapi.version>
         <war-plugin.version>3.5.1</war-plugin.version>
         <cargo.version>1.10.25</cargo.version>
+        <arquillian.version>1.10.1.Final</arquillian.version>
+        <payara.arquillian.version>4.0.alpha4</payara.arquillian.version>
+        <payara.embedded.version>7.2026.3</payara.embedded.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -37,6 +53,12 @@
             <version>${microprofile-config.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
+            <version>${microprofile-openapi.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -48,13 +70,32 @@
         <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
             <artifactId>jersey-test-framework-provider-jdk-http</artifactId>
-            <version>3.1.9</version>
+            <version>4.0.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
-            <version>3.1.9</version>
+            <version>4.0.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Arquillian — embedded Payara integration tests (like @SpringBootTest) -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.arquillian</groupId>
+            <artifactId>arquillian-payara-server-embedded</artifactId>
+            <version>${payara.arquillian.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-embedded-web</artifactId>
+            <version>${payara.embedded.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -71,6 +112,33 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.5.2</version>
+                <configuration>
+                    <!-- Embedded Payara needs reflective access to Java internals for CDI/Weld -->
+                    <argLine>
+                        --add-opens java.base/sun.net.www.protocol.jar=ALL-UNNAMED
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.io=ALL-UNNAMED
+                        --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+                        --add-opens java.naming/javax.naming.spi=ALL-UNNAMED
+                        --add-opens java.management/sun.management=ALL-UNNAMED
+                        --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+                        --add-modules java.se
+                        --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

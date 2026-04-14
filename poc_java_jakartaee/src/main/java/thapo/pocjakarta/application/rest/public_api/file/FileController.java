@@ -1,4 +1,4 @@
-package thapo.pocjakarta.application.rest.file;
+package thapo.pocjakarta.application.rest.public_api.file;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

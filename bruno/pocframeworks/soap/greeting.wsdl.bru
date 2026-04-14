@@ -1,0 +1,16 @@
+meta {
+  name: /greeting.wsdl
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:11080/pocspring/soap/greeting/greeting.wsdl
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
