@@ -10,7 +10,7 @@
 
 
 <div class="container">
-    <a class="btn btn-primary" th:href="@{/mpa/todo/create_todo}">Create todo</a>
+    <a class="btn btn-primary" th:href="@{/web/todo/create_todo}">Create todo</a>
 
     <p>These are the active todos!!</p>
     <table class="table">
@@ -33,7 +33,7 @@
                 <form method="post" style="display:inline" th:action="@{/todos/{id}/toggle(id=${todo.id})}">
                     <button type="submit">Toggle</button>
                 </form>
-                <form method="post" style="display:inline" th:action="@{/mpa/todo/delete_todo(id=${todo.id})}">
+                <form method="post" style="display:inline" th:action="@{/web/todo/delete_todo(id=${todo.id})}">
                     <button type="submit">Delete</button>
                 </form>
             </td>

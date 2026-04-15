@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Deprecated(forRemoval = true)
-class CustomOAuth2AuthenticatedPrincipal implements OAuth2TokenIntrospectionClaimAccessor, CustomOAuth2AuthenticatedPrincipalI {
+public class CustomOAuth2AuthenticatedPrincipal implements OAuth2TokenIntrospectionClaimAccessor, CustomOAuth2AuthenticatedPrincipalI {
     private final OAuth2AuthenticatedPrincipal delegate;
     private final Set<GrantedAuthority> authorities;
 

@@ -55,8 +55,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     testImplementation("org.springframework.graphql:spring-graphql-test")
     // SOAP
-    implementation("org.springframework.boot:spring-boot-starter-web-services")
-    testImplementation("org.springframework.boot:spring-boot-starter-web-services-test")
+    implementation("org.springframework.boot:spring-boot-starter-webservices")
+    testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
     runtimeOnly("wsdl4j:wsdl4j")
     // OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1")
@@ -79,7 +79,7 @@ tasks.withType<Test> {
 
 xjc {
     xsdDir.set(layout.projectDirectory.dir("src/main/resources/soap"))
-    defaultPackage.set("thapo.pocspring.web.soap.dto")
+    defaultPackage.set("thapo.pocspring.application.soap.dto")
     addCompilationDependencies.set(false)
 }
 
