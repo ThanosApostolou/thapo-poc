@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class ChatWebSocketHandler extends TextWebSocketHandler {
+    public static final String PATH = "/ws/chat";
 
     private final Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
 

@@ -12,6 +12,7 @@ import java.time.Instant;
 @Endpoint
 public class GreetingController {
 
+    public static final String PATH = "/soap/greeting";
     public static final String NAMESPACE = "http://pocspring.thapo/soap/greeting";
 
     @PayloadRoot(namespace = NAMESPACE, localPart = "GetGreetingRequest")

@@ -7,14 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import org.springframework.stereotype.Component;
 import thapo.pocspring.infrastructure.auth.CustomJwt;
 import thapo.pocspring.infrastructure.auth.CustomJwtAuthenticationToken;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
 @Slf4j
 public class CustomJwtAuthenticationConverter implements Converter<Jwt, CustomJwtAuthenticationToken> {
     private final Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();

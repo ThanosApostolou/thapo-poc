@@ -26,12 +26,12 @@ public class SoapWebServiceConfig implements WsConfigurer {
     }
 
     @Bean(name = "greeting")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema greetingSchema) {
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("GreetingPort");
-        definition.setLocationUri("/soap/greeting");
+        definition.setLocationUri(GreetingController.PATH);
         definition.setTargetNamespace(GreetingController.NAMESPACE);
-        definition.setSchema(greetingSchema);
+        definition.setSchema(xsdSchema);
         return definition;
     }
 

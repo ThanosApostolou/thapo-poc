@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import thapo.pocspring.infrastructure.auth.CustomOidcUser;
 
@@ -23,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-@Service
 public class CustomOidcUserService extends OidcUserService {
 
     private Map<String, Object> getAccessTokenClaims(OAuth2AccessToken token) {

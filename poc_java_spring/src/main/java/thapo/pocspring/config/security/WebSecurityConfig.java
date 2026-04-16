@@ -44,7 +44,8 @@ public class WebSecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain filterChainMpa(final HttpSecurity http, final ClientRegistrationRepository clientRegistrationRepository,
-                                              final OAuth2AuthorizationRequestResolver resolver, final CustomOidcUserService customOidcUserService) {
+                                              final OAuth2AuthorizationRequestResolver resolver) {
+        final CustomOidcUserService customOidcUserService = new CustomOidcUserService();
         // Mutli page application auth
         http
                 .securityMatcher("/", "/web/**", "/login/**", "/logout/**", "/oauth2/**")
@@ -74,7 +75,8 @@ public class WebSecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain filterChainRest(final HttpSecurity http, final CustomJwtAuthenticationConverter customJwtAuthenticationConverter) {
+    public SecurityFilterChain filterChainRest(final HttpSecurity http) {
+        final CustomJwtAuthenticationConverter customJwtAuthenticationConverter = new CustomJwtAuthenticationConverter();
         // rest auth
         http
                 .cors(Customizer.withDefaults()) // use WebMVC cors configuration
