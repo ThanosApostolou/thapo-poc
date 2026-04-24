@@ -7,6 +7,15 @@ spring:
     password: "pocwebframeworks_password"
     hikari:
       schema: "pocwebframeworks_schema"
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true
+      path: /graphql/graphiql
+    schema:
+      printer:
+        enabled: true  # exposes schema at GET /graphql/schema
+        path: /graphql/schema
   security:
     oauth2:
       resourceserver:

@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "4.0.5"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.github.bjornvester.xjc") version "1.9.0"
+    id("com.netflix.dgs.codegen") version "8.4.3"
 }
 
 group = "thapo"
@@ -75,6 +76,12 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask>("generateJava") {
+    schemaPaths = mutableListOf("${projectDir}/src/main/resources/graphql")
+    packageName = "thapo.pocspring.application.graphql.generated"
+    generateJSpecifyAnnotations = true
 }
 
 xjc {

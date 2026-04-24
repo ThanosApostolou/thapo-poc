@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
-import thapo.pocspring.config.security.CustomOidcUserService;
+import thapo.pocspring.infrastructure.auth.CustomOidcUserService;
 import thapo.pocspring.testutils.CommonControllerTestConfiguration;
 import thapo.pocspring.testutils.CustomJwtAuthenticationTokenTestBuilder;
 

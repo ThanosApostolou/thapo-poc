@@ -1,4 +1,4 @@
-package thapo.pocspring.config.security;
+package thapo.pocspring.infrastructure.auth;
 
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTParser;
@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.util.StringUtils;
-import thapo.pocspring.infrastructure.auth.CustomOidcUser;
 
 import java.util.LinkedHashSet;
 import java.util.List;

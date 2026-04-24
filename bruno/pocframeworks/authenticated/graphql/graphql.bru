@@ -1,0 +1,25 @@
+meta {
+  name: graphql
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: inherit
+}
+
+body:graphql {
+  query MyQuery {
+    books {
+      author
+    }
+    hello
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

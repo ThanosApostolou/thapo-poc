@@ -1,9 +1,8 @@
-package thapo.pocspring.config.security;
+package thapo.pocspring.infrastructure.auth;
 
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.SpringOpaqueTokenIntrospector;
-import thapo.pocspring.infrastructure.auth.CustomOAuth2AuthenticatedPrincipal;
 
 /**
  * @deprecated

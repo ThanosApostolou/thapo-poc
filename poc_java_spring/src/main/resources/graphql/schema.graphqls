@@ -1,0 +1,27 @@
+schema {
+    query: Query,
+    mutation: Mutation,
+    subscription: Subscription
+}
+
+type Query {
+    hello(name: String): String!
+    getTest: String!
+    books: [Book!]!
+    bookById(id: ID!): Book
+}
+
+type Mutation {
+    addBook(title: String!, author: String!): Book!
+}
+
+type Subscription {
+    bookAdded: Book!
+}
+
+type Book {
+    id: ID!
+    title: String!
+    author: String!
+}
+

@@ -1,4 +1,4 @@
-package thapo.pocspring.config.security;
+package thapo.pocspring.infrastructure.auth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
@@ -7,8 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import thapo.pocspring.infrastructure.auth.CustomJwt;
-import thapo.pocspring.infrastructure.auth.CustomJwtAuthenticationToken;
 
 import java.util.*;
 import java.util.stream.Collectors;

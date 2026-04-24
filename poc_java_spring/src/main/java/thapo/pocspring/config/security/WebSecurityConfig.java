@@ -17,6 +17,8 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequest
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
+import thapo.pocspring.infrastructure.auth.CustomJwtAuthenticationConverter;
+import thapo.pocspring.infrastructure.auth.CustomOidcUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -82,8 +84,10 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults()) // use WebMVC cors configuration
                 .csrf(CsrfConfigurer::disable) // disable csrf
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll();
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/soap/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**",
+                            "/graphql/**", "/graphql/graphiql/**",
+                            "/soap/**"
+                    ).permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/rest/public_api/**", "/rest/api/stream/**", "/public/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/rest/api/**", "/ws/**").authenticated();
                     authorizationManagerRequestMatcherRegistry.anyRequest().denyAll();
