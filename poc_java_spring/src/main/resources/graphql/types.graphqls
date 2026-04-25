@@ -1,4 +1,4 @@
-type Book2 {
+type Book {
     id: ID!
     title: String!
     author: String!
