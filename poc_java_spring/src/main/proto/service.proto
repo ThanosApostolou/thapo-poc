@@ -1,0 +1,17 @@
+edition = "2024";
+
+package thapo.pocspring.proto;
+
+import "google/protobuf/empty.proto";
+import "message.proto";
+
+option java_package = "thapo.pocspring.application.proto.generated";
+
+service ApiService {
+  rpc Hello(HelloRequest) returns (HelloResponse);
+  rpc GetTest(google.protobuf.Empty) returns (GetTestResponse);
+  rpc ListBooks(google.protobuf.Empty) returns (ListBooksResponse);
+  rpc GetBookById(GetBookByIdRequest) returns (GetBookByIdResponse);
+  rpc AddBook(AddBookRequest) returns (Book);
+  rpc BookAdded(google.protobuf.Empty) returns (stream Book);
+}

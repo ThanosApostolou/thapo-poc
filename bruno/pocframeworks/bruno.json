@@ -5,5 +5,19 @@
   "ignore": [
     "node_modules",
     ".git"
-  ]
+  ],
+  "size": 0.007974624633789062,
+  "filesCount": 47,
+  "protobuf": {
+    "protoFiles": [
+      {
+        "path": "../../poc_java_spring/src/main/resources/proto/message.proto",
+        "type": "file"
+      },
+      {
+        "path": "../../poc_java_spring/src/main/resources/proto/service.proto",
+        "type": "file"
+      }
+    ]
+  }
 }

@@ -1,0 +1,18 @@
+meta {
+  name: localhost
+  type: grpc
+  seq: 2
+}
+
+grpc {
+  url: localhost:11082/thapo.pocspring.proto.ApiService
+  body: grpc
+  auth: inherit
+}
+
+body:grpc {
+  name: message 1
+  content: '''
+    {}
+  '''
+}

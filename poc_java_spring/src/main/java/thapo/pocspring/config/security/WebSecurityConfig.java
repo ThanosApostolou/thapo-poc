@@ -86,7 +86,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**",
                             "/graphql/**", "/graphql/graphiql/**",
-                            "/soap/**"
+                            "/soap/**",
+                            "/thapo.pocspring.proto.ApiService/**"
                     ).permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/rest/public_api/**", "/rest/api/stream/**", "/public/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/rest/api/**", "/ws/**").authenticated();
